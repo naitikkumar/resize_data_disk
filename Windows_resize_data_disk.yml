@@ -16,7 +16,7 @@ steps:
     azureSubscription: 'aks_vnet_details'
     ScriptType: 'FilePath'
     ScriptPath: '$(Build.SourcesDirectory)/resize_data_disk.ps1'
-    ScriptArguments: '-rgName aks -vmName vm -size 300'
+    ScriptArguments: '-rgName aks -vmName vm -size 300 -disknumber 1'
     FailOnStandardError: true
     azurePowerShellVersion: 'LatestVersion'
     workingDirectory: '$(Build.SourcesDirectory)'

@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzurePowerShell@5
+  displayName: resizing data disk 
+  inputs:
+    azureSubscription: 'aks_vnet_details'
+    ScriptType: 'FilePath'
+    ScriptPath: '$(Build.SourcesDirectory)/resize_data_disk.ps1'
+    ScriptArguments: '-rgName aks -vmName vm -size 300'
+    FailOnStandardError: true
+    azurePowerShellVersion: 'LatestVersion'
+    workingDirectory: '$(Build.SourcesDirectory)'
+  continueOnError: true
+  condition: succeeded()
+  enabled: true
